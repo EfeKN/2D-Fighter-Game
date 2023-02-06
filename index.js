@@ -22,7 +22,7 @@ const c = canv.getContext('2d');
 const gravity = 0.7
 const speed = 5
 const hop = 20
-const cooldown = 1000
+const cooldown = 100
 
 class Sprite
 {
@@ -195,7 +195,7 @@ window.addEventListener('keydown', (event) => {
             enemy.lk = 'ArrowRight'
             break
         case 'ArrowDown' :
-            enemy.isAttacking = true
+            enemy.attack()
             break
     }
 })
