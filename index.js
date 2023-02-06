@@ -1,5 +1,3 @@
-// 1:12:24
-
 const canv = document.querySelector('canvas') 
 
 //Query Selector lets you find the first element that matches the CSS Selector
@@ -23,6 +21,7 @@ const gravity = 0.7
 const speed = 5
 const hop = 20
 const cooldown = 100
+const hp = 100
 
 class Sprite
 {
@@ -43,6 +42,7 @@ class Sprite
         }
         this.color = color
         this.isAttacking
+        this.health = hp
     }
 
     draw() {
@@ -155,12 +155,16 @@ function animate() {
     {
         player.isAttacking = false
         console.log('player_attacking')
+        enemy.health -= 20
+        document.querySelector('#enemyHealth').style.width = enemy.health + '%'
     }
 
     if (checkCollusion({rect1:enemy,rect2:player}) && enemy.isAttacking)
     {
         enemy.isAttacking = false
         console.log('enemy_attacking')
+        player.health -= 20
+        document.querySelector('#playerHealth').style.width = player.health + '%'
     }
 }
 
