@@ -122,6 +122,36 @@ function checkCollusion({rect1,rect2}) {
     )
 }
 
+function determineWinner({player,enemy,timerID}) {
+    clearTimeout(timerID)
+    document.querySelector('#displayText').style.display = 'flex'
+    if(player.health == enemy.health)
+    {
+        document.querySelector('#displayText').innerHTML = 'Tie'     
+    } else if(player.health > enemy.health) {
+        document.querySelector('#displayText').innerHTML = 'Player 1 Wins'  
+    } else if(player.health < enemy.health) {
+        document.querySelector('#displayText').innerHTML = 'Player 2 Wins'  
+    }
+}
+
+let timer = 60
+let timerID
+function decTimer() {
+    timerID = setTimeout(decTimer,1000 /* 1 sec = 1000 units */)
+    if(timer > 0)
+    {
+        timer--
+        document.querySelector('#timer').innerHTML = timer
+    }
+
+    if(timer == 0) {
+        determineWinner({player,enemy,timerID})
+    }
+}
+
+decTimer()
+
 //Animation Loop
 function animate() {
     window.requestAnimationFrame(animate) // ---> infinite loop
@@ -165,6 +195,12 @@ function animate() {
         console.log('enemy_attacking')
         player.health -= 20
         document.querySelector('#playerHealth').style.width = player.health + '%'
+    }
+
+    // game over condition
+    if(enemy.health <= 0 || player.health<= 0)
+    {
+        determineWinner({player,enemy,timerID})
     }
 }
 
