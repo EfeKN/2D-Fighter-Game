@@ -17,9 +17,9 @@ canv.height = 576;
 
 const c = canv.getContext('2d');
 
-const gravity = 0.7
+const gravity = 0.2
 const speed = 5
-const hop = 20
+const hop = 10
 const cooldown = 100
 const hp = 100
 
@@ -38,19 +38,73 @@ const shop = new Sprite({
 const player = new Fighter({
     position:{x:0, y:0},
     velocity:{x:0, y:0},
-    offset: {x:0,y:0}
+    imgSrc:'./img/p1/Idle.png',
+    frames: 8,
+    scale: 2.5,
+    offset: {x:215,y:157},
+    sprites: {
+        idle: {
+            imgSrc: './img/p1/Idle.png',
+            frames: 8
+        },
+        run: {
+            imgSrc: './img/p1/Run.png',
+            frames: 8
+        },
+        jump: {
+            imgSrc: './img/p1/Jump.png',
+            frames: 2
+        },
+        fall: {
+            imgSrc: './img/p1/Fall.png',
+            frames: 2
+        },
+        attack1: {
+            imgSrc: './img/p1/Attack1.png',
+            frames: 6
+        },
+        attack2: {
+            imgSrc: './img/p1/Attack2.png',
+            frames: 6
+        }
+    }
     })
-player.draw()
 
 const enemy = new Fighter({
     position:{x:974, y:0},
     velocity:{x:0, y:0},
     color:'yellow',
-    offset: {x:-50,y:0}
+    imgSrc:'./img/p2/Idle.png',
+    frames: 4,
+    scale: 2.5,
+    offset: {x:215,y:170},
+    sprites: {
+        idle: {
+            imgSrc: './img/p2/Idle.png',
+            frames: 4
+        },
+        run: {
+            imgSrc: './img/p2/Run.png',
+            frames: 8
+        },
+        jump: {
+            imgSrc: './img/p2/Jump.png',
+            frames: 2
+        },
+        fall: {
+            imgSrc: './img/p2/Fall.png',
+            frames: 2
+        },
+        attack1: {
+            imgSrc: './img/p2/Attack1.png',
+            frames: 4
+        },
+        attack2: {
+            imgSrc: './img/p2/Attack2.png',
+            frames: 4
+        }
+    }
     })
-enemy.draw()
-
-console.log(player)
 
 const keys =
 {
@@ -113,23 +167,44 @@ function animate() {
     shop.update()
     player.update()
     enemy.update()
-    
+
     //Player Movement
     player.velocity.x = 0
     if(keys.a.pressed && player.lk == 'a') {
         player.velocity.x = -1 * speed
+        player.switchSprite('run')
     }
     else if(keys.d.pressed && player.lk == 'd') {
         player.velocity.x = speed
+        player.switchSprite('run')
+    }
+    else {
+        player.switchSprite('idle')
+    }
+
+    if(player.velocity.y < 0) {
+        player.switchSprite('jump')
+    } else if(player.velocity.y > 0) {
+        player.switchSprite('fall')
     }
 
     //Enemy Movement
     enemy.velocity.x = 0
     if(keys.aLeft.pressed && enemy.lk == 'ArrowLeft') {
         enemy.velocity.x = -1 * speed
+        enemy.switchSprite('run')
     }
     else if(keys.aRight.pressed && enemy.lk == 'ArrowRight') {
         enemy.velocity.x = speed
+        enemy.switchSprite('run')
+    } else {
+        enemy.switchSprite('idle')
+    }
+
+    if(enemy.velocity.y < 0) {
+        enemy.switchSprite('jump')
+    } else if(enemy.velocity.y > 0) {
+        enemy.switchSprite('fall')
     }
 
     //collusion detection
