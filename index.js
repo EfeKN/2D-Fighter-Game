@@ -28,6 +28,13 @@ const bg = new Sprite({
     imgSrc:'./img/background.png'
 })
 
+const shop = new Sprite({
+    position:{x:620, y:133},
+    imgSrc:'./img/shop.png',
+    scale:2.7,
+    frames:6
+})
+
 const player = new Fighter({
     position:{x:0, y:0},
     velocity:{x:0, y:0},
@@ -102,9 +109,11 @@ function animate() {
     c.fillRect(0,0,canv.width,canv.height)
     c.fillStyle = 'red'
     bg.draw()
+    shop.draw()
+    shop.update()
     player.update()
     enemy.update()
-
+    
     //Player Movement
     player.velocity.x = 0
     if(keys.a.pressed && player.lk == 'a') {
