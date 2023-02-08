@@ -104,7 +104,7 @@ class Fighter extends Sprite
 
         //attack boxes
         
-        c.fillRect(this.attackBox.position.x,this.attackBox.position.y,this.attackBox.width,this.attackBox.height) 
+        //c.fillRect(this.attackBox.position.x,this.attackBox.position.y,this.attackBox.width,this.attackBox.height) 
         
         //movement
         this.position.y += this.velocity.y
