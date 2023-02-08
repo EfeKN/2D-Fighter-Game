@@ -67,6 +67,14 @@ const player = new Fighter({
             imgSrc: './img/p1/Attack2.png',
             frames: 6
         }
+    },
+    attackBox: {
+        offset: {
+            x: 100,
+            y: 50
+        },
+        width: 140,
+        height: 50
     }
     })
 
@@ -103,6 +111,14 @@ const enemy = new Fighter({
             imgSrc: './img/p2/Attack2.png',
             frames: 4
         }
+    },
+    attackBox: {
+        offset: {
+            x: -170,
+            y: 50
+        },
+        width: 170,
+        height: 50
     }
     })
 
@@ -208,7 +224,7 @@ function animate() {
     }
 
     //collusion detection
-    if (checkCollusion({rect1:player,rect2:enemy}) && player.isAttacking)
+    if (checkCollusion({rect1:player,rect2:enemy}) && player.isAttacking && player.framesCurrent === 4)
     {
         player.isAttacking = false
         console.log('player_attacking')
@@ -216,12 +232,22 @@ function animate() {
         document.querySelector('#enemyHealth').style.width = enemy.health + '%'
     }
 
-    if (checkCollusion({rect1:enemy,rect2:player}) && enemy.isAttacking)
+    //miss - player
+    if(player.isAttacking && player.framesCurrent === 4) {
+        player.isAttacking = false
+    }
+
+    if (checkCollusion({rect1:enemy,rect2:player}) && enemy.isAttacking && player.framesCurrent === 2)
     {
         enemy.isAttacking = false
         console.log('enemy_attacking')
         player.health -= 20
         document.querySelector('#playerHealth').style.width = player.health + '%'
+    }
+
+        //miss - enemy
+    if(enemy.isAttacking && enemy.framesCurrent === 2) {
+        enemy.isAttacking = false
     }
 
     // game over condition
