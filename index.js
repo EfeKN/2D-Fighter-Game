@@ -70,6 +70,10 @@ const player = new Fighter({
         takeHit: {
             imgSrc: './img/p1/Take hit.png',
             frames: 4
+        },
+        death: {
+            imgSrc: './img/p1/Death.png',
+            frames: 6
         }
     },
     attackBox: {
@@ -118,14 +122,18 @@ const enemy = new Fighter({
         takeHit: {
             imgSrc: './img/p2/Take hit.png',
             frames: 3
+        },
+        death: {
+            imgSrc: './img/p2/Death.png',
+            frames: 7
         }
     },
     attackBox: {
         offset: {
-            x: -170,
+            x: -190,
             y: 50
         },
-        width: 170,
+        width: 180,
         height: 50
     }
     })
@@ -268,6 +276,7 @@ animate()
 
 //Add event listener
 window.addEventListener('keydown', (event) => {
+    if(!player.dead) {
     switch(event.key){
         case 'w':
             player.velocity.y = -1 * hop
@@ -283,6 +292,11 @@ window.addEventListener('keydown', (event) => {
         case ' ':
             player.attack()
             break
+    }
+    }
+
+    if(!enemy.dead) {
+    switch(event.key){
         case 'ArrowUp':
             enemy.velocity.y = -1 * hop
             break
@@ -297,6 +311,7 @@ window.addEventListener('keydown', (event) => {
         case 'ArrowDown' :
             enemy.attack()
             break
+    }
     }
 })
 
