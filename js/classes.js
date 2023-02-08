@@ -103,9 +103,9 @@ class Fighter extends Sprite
         this.attackBox.position.y = this.position.y + this.attackBox.offset.y
 
         //attack boxes
-        /* 
+        
         c.fillRect(this.attackBox.position.x,this.attackBox.position.y,this.attackBox.width,this.attackBox.height) 
-        */
+        
         //movement
         this.position.y += this.velocity.y
         this.position.x += this.velocity.x
@@ -127,9 +127,16 @@ class Fighter extends Sprite
         this.isAttacking = true
     }
 
+    takeHit() {
+        this.switchSprite('takeHit')
+        this.health -= 20
+    }
+
     switchSprite(sprite) {
 
         if(this.image === this.sprites.attack1.image && this.framesCurrent < this.sprites.attack1.frames-1) return
+
+        if(this.image === this.sprites.takeHit.image && this.framesCurrent < this.sprites.takeHit.frames-1) return
 
         switch(sprite) {
             case 'idle':
@@ -171,6 +178,13 @@ class Fighter extends Sprite
                 if(this.image != this.sprites.attack2.image) {
                     this.image = this.sprites.attack2.image
                     this.frames = this.sprites.attack2.frames
+                    this.framesCurrent = 0
+                }
+            break;
+            case 'takeHit':
+                if(this.image != this.sprites.takeHit.image) {
+                    this.image = this.sprites.takeHit.image
+                    this.frames = this.sprites.takeHit.frames
                     this.framesCurrent = 0
                 }
             break;

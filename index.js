@@ -66,6 +66,10 @@ const player = new Fighter({
         attack2: {
             imgSrc: './img/p1/Attack2.png',
             frames: 6
+        },
+        takeHit: {
+            imgSrc: './img/p1/Take hit.png',
+            frames: 4
         }
     },
     attackBox: {
@@ -110,6 +114,10 @@ const enemy = new Fighter({
         attack2: {
             imgSrc: './img/p2/Attack2.png',
             frames: 4
+        },
+        takeHit: {
+            imgSrc: './img/p2/Take hit.png',
+            frames: 3
         }
     },
     attackBox: {
@@ -223,12 +231,11 @@ function animate() {
         enemy.switchSprite('fall')
     }
 
-    //collusion detection
+    //collusion detection - player
     if (checkCollusion({rect1:player,rect2:enemy}) && player.isAttacking && player.framesCurrent === 4)
     {
+        enemy.takeHit()
         player.isAttacking = false
-        console.log('player_attacking')
-        enemy.health -= 20
         document.querySelector('#enemyHealth').style.width = enemy.health + '%'
     }
 
@@ -237,11 +244,11 @@ function animate() {
         player.isAttacking = false
     }
 
+    //collusion detection - enemy
     if (checkCollusion({rect1:enemy,rect2:player}) && enemy.isAttacking && player.framesCurrent === 2)
     {
+        player.takeHit()
         enemy.isAttacking = false
-        console.log('enemy_attacking')
-        player.health -= 20
         document.querySelector('#playerHealth').style.width = player.health + '%'
     }
 
