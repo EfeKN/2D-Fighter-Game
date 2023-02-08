@@ -190,12 +190,10 @@ decTimer()
 //Animation Loop
 function animate() {
     window.requestAnimationFrame(animate) // ---> infinite loop
-    c.clearRect(0,0,canv.width,canv.height)
-    c.fillStyle = 'black'
+    //c.clearRect(0,0,canv.width,canv.height)
+    c.fillStyle = 'rgba(255,255,255,0.1)'
     c.fillRect(0,0,canv.width,canv.height)
-    c.fillStyle = 'red'
-    bg.draw()
-    shop.draw()
+    bg.update()
     shop.update()
     player.update()
     enemy.update()
@@ -244,7 +242,7 @@ function animate() {
     {
         enemy.takeHit()
         player.isAttacking = false
-        document.querySelector('#enemyHealth').style.width = enemy.health + '%'
+        gsap.to('#enemyHealth',{width:enemy.health + '%'})
     }
 
     //miss - player
@@ -257,7 +255,7 @@ function animate() {
     {
         player.takeHit()
         enemy.isAttacking = false
-        document.querySelector('#playerHealth').style.width = player.health + '%'
+        gsap.to('#playerHealth',{width:player.health + '%'})
     }
 
         //miss - enemy
