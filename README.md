@@ -1,6 +1,6 @@
 # 2D Fighter Game (YouTube Tutorial)
 
-![Game-Overview]([https://github.com/EfeKN/2D-Fighter-Game/img/overview.gif](https://github.com/EfeKN/2D-Fighter-Game/blob/main/img/overview.gif))
+![Game-Overview](https://github.com/EfeKN/2D-Fighter-Game/blob/main/img/overview.gif)
 
 This is a simple 2D fighter game developed using JavaScript and the HTML5 canvas. The game was created following a tutorial on YouTube by Chris Courses. The original source code can be found on [GitHub](https://github.com/chriscourses/fighting-game).
 
